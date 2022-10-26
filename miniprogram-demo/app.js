@@ -1,8 +1,11 @@
 // app.js
-var turbo = require('./utils/turbo.min.js');
+import turbo from "./utils/turbo.min.js"
 App({
   onLaunch() {
-    turbo.init('h8djf2K9adp3FHQESLbsjqmXk7pgsaAm', "your_client_id");
+    turbo.setPara({
+      show_log: false
+    })
+    turbo.init('gZGljPsq7I4wc3BMvkAUsevQznx1jahi', "your_client_id");
   },
   globalData: {}
 })
