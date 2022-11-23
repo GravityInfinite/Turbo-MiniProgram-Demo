@@ -132,6 +132,15 @@ function initAppProxy() {
       turbo._autoTrackCustom.appLaunch(option);
     }
     turbo._autoTrackCustom.appShow(para);
+    // sendOnce({
+    //   type: "track",
+    //   event: "$MPShow",
+    //   properties: {
+    //     $url_query: setQuery(para.query),
+    //     $scene: String(para.scene),
+    //   },
+    //   time: Date.now(),
+    // });
   });
 
   wx.onAppHide(function () {
@@ -143,7 +152,17 @@ function checkAppLaunch() {
     const option = wx.getLaunchOptionsSync() || {};
     turbo._meta.life_state.app_launched = true;
     turbo._current_scene = option.scene;
-    turbo._autoTrackCustom.appLaunch(option);
+    // turbo._autoTrackCustom.appLaunch(option);
+    sendOnce({
+      type: "track",
+      event: "$MPLaunch",
+      properties: {
+        $is_first_time: turbo._is_first_launch,
+        $url_query: setQuery(option.query),
+        $scene: String(option.scene),
+      },
+      time: Date.now(),
+    });
   }
 }
 
@@ -170,6 +189,22 @@ turbo.init = function (access_token = "", client_id = "") {
   sendStrategy.init();
   checkAppLaunch();
 };
+
+function sendOnce(data) {
+  if (!turbo._globalData.client_id) {
+    return;
+  }
+  const datas = turbo._store.mem.getMultList([data]) || [];
+  console.log(datas[0], 189);
+  wx.request({
+    url:
+      turbo._para.server_url +
+      `?access_token=${turbo._globalData.access_token}`,
+    method: "POST",
+    header,
+    data: datas[0],
+  });
+}
 
 const sendStrategy = {
   dataHasSend: true,
