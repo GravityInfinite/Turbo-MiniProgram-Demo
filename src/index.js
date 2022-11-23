@@ -129,7 +129,17 @@ function initAppProxy() {
   wx.onAppShow(function (para) {
     if (!turbo._meta.life_state.app_launched) {
       const option = wx.getLaunchOptionsSync() || {};
-      turbo._autoTrackCustom.appLaunch(option);
+      // turbo._autoTrackCustom.appLaunch(option);
+      sendOnce({
+        type: "track",
+        event: "$MPLaunch",
+        properties: {
+          $is_first_time: turbo._is_first_launch,
+          $url_query: setQuery(option.query),
+          $scene: String(option.scene),
+        },
+        time: Date.now(),
+      });
     }
     turbo._autoTrackCustom.appShow(para);
     // sendOnce({
