@@ -205,7 +205,6 @@ function sendOnce(data) {
     return;
   }
   const datas = turbo._store.mem.getMultList([data]) || [];
-  console.log(datas[0], 189);
   wx.request({
     url:
       turbo._para.server_url +
