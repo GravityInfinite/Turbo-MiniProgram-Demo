@@ -21,6 +21,13 @@
           "query": "callback=xx&ksCampaignId=xxx&ksUnitId=xx&ksCreativeId=xx&ksChannel=xx",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "tx",
+          "pathName": "pages/index/index",
+          "query": "gdt_vid=1xx",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
