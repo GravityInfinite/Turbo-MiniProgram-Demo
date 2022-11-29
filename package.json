@@ -1,6 +1,6 @@
 {
   "name": "turbo-sdk-miniprogram",
-  "version": "3.2.5",
+  "version": "3.2.6",
   "description": "turbo miniprogram sdk",
   "main": "turbo.min.js",
   "scripts": {
